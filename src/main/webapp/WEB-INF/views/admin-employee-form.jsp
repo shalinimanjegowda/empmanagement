@@ -19,7 +19,7 @@
 			<h3 class="text-center">Employee Management</h3>
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					<div class="panel-title"> <a href="/empmanagement">Logout</a></div>
+					<div class="panel-title"> <a href="/">Logout</a></div>
 				</div>
 				<div class="panel-body">
 					<form:form action="saveEmployee" cssClass="form-horizontal"

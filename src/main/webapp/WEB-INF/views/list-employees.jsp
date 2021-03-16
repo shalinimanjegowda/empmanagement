@@ -23,7 +23,7 @@
 			<br />
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					<div class="panel-title"> <a href="/empmanagement">Logout</a></div>
+					<div class="panel-title"> <a href="/">Logout</a></div>
 				</div>
 				<div class="panel-body">
 					<table class="table table-striped table-bordered">
@@ -38,12 +38,12 @@
 						<c:forEach var="tempEmployee" items="${employees}">
 
 							<!-- construct an "update" link with employee id -->
-							<c:url var="updateLink" value="/employee/updateForm">
+							<c:url var="updateLink" value="/updateForm">
 								<c:param name="employeeId" value="${tempEmployee.id}" />
 							</c:url>
 
 							<!-- construct an "delete" link with employee id -->
-							<c:url var="deleteLink" value="/employee/delete">
+							<c:url var="deleteLink" value="/delete">
 								<c:param name="employeeId" value="${tempEmployee.id}" />
 							</c:url>
 
