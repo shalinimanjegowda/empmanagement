@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource({ "classpath:database.properties" })
+@PropertySource({ "classpath:application.properties" })
 @ComponentScan({ "net.com.springmvc" })
 @EnableJpaRepositories(basePackages = "net.com.springmvc.repository")
 public class PersistenceJPAConfig {

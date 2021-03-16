@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import net.com.springmvc.entity.Employee;
@@ -19,13 +18,17 @@ import net.com.springmvc.exception.ResourceNotFoundException;
 import net.com.springmvc.service.EmployeeService;
 
 @Controller
-@RequestMapping("/employee")
 public class EmployeeController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(EmployeeController.class);
 
 	@Autowired
 	private EmployeeService employeeService;
+
+	@GetMapping("/")
+	public String launch(Model theModel) {
+		return "index";
+	}
 
 	@GetMapping("/list")
 	public String listEmployees(Model theModel) {
@@ -59,13 +62,13 @@ public class EmployeeController {
 	@PostMapping("/saveEmployee")
 	public String saveEmployee(@ModelAttribute("employee") Employee theEmployee) {
 		employeeService.saveEmployee(theEmployee);
-		return "redirect:/employee/list";
+		return "redirect:/list";
 	}
-	
+
 	@PostMapping("/saveUserEmployee")
 	public String saveUserEmployee(@ModelAttribute("employee") Employee theEmployee) {
 		employeeService.saveEmployee(theEmployee);
-		return "redirect:/employee/details";
+		return "redirect:/details";
 	}
 
 	@GetMapping("/details")
@@ -74,7 +77,7 @@ public class EmployeeController {
 		theModel.addAttribute("employees", theEmployees);
 		return "employeeDetails";
 	}
-	
+
 	@GetMapping("/updateForm")
 	public String showFormForUpdate(@RequestParam("employeeId") int theId, Model theModel)
 			throws ResourceNotFoundException {
@@ -86,6 +89,6 @@ public class EmployeeController {
 	@GetMapping("/delete")
 	public String deleteEmployee(@RequestParam("employeeId") int theId) throws ResourceNotFoundException {
 		employeeService.deleteEmployee(theId);
-		return "redirect:/employee/list";
+		return "redirect:/list";
 	}
 }
