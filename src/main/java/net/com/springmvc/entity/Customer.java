@@ -3,7 +3,7 @@ package net.com.springmvc.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-@Document(indexName="elasticsearch",shards=2)
+@Document(indexName="javatechie",shards=2)
 public class Customer {
 	
 	@Id
