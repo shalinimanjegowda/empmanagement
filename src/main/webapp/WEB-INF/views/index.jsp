@@ -26,7 +26,7 @@
 						<div class="panel-title">Login</div>
 					</div>
 					<div class="panel-body">
-						<form:form action="employee/login" method="post"
+						<form:form action="/login" method="post"
 							modelAttribute="Login">
 							<table>
 								<tr>
