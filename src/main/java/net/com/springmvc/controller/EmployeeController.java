@@ -5,6 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,18 +14,27 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.activemq.EmployeeProducer;
+
 import net.com.springmvc.entity.Employee;
 import net.com.springmvc.entity.Login;
 import net.com.springmvc.exception.ResourceNotFoundException;
 import net.com.springmvc.service.EmployeeService;
 
 @Controller
+@ComponentScan({"com.activemq"})
 public class EmployeeController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(EmployeeController.class);
 
 	@Autowired
 	private EmployeeService employeeService;
+	
+	@Autowired
+	EmployeeProducer employeeProducer;
+
+	@Value("${activemq.destination}")
+	private String destination;
 
 	@GetMapping("/")
 	public String launch(Model theModel) {
@@ -62,6 +73,7 @@ public class EmployeeController {
 	@PostMapping("/saveEmployee")
 	public String saveEmployee(@ModelAttribute("employee") Employee theEmployee) {
 		employeeService.saveEmployee(theEmployee);
+		employeeProducer.sendTo(destination, theEmployee);
 		return "redirect:/list";
 	}
 
