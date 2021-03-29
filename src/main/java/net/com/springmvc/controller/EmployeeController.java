@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.activemq.EmployeeProducer;
+import com.email.EmailService;
 
 import net.com.springmvc.entity.Employee;
 import net.com.springmvc.entity.Login;
@@ -22,16 +23,19 @@ import net.com.springmvc.exception.ResourceNotFoundException;
 import net.com.springmvc.service.EmployeeService;
 
 @Controller
-@ComponentScan({"com.activemq"})
+@ComponentScan({ "com.activemq", "com.email" })
 public class EmployeeController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(EmployeeController.class);
 
 	@Autowired
 	private EmployeeService employeeService;
-	
+
 	@Autowired
 	EmployeeProducer employeeProducer;
+
+	@Autowired
+	private EmailService emailService;
 
 	@Value("${activemq.destination}")
 	private String destination;
@@ -53,6 +57,8 @@ public class EmployeeController {
 		Employee theEmployee = new Employee();
 		model.addAttribute("employee", theEmployee);
 		if (login.getUsername().equalsIgnoreCase("admin") && login.getPassword().equalsIgnoreCase("admin")) {
+			emailService.sendMail("s.manjegowda@devon.nl", "Hi", "Welcome");
+			emailService.sendPreConfiguredMail("Welcome");
 			return "admin-employee-form";
 		} else if (login.getUsername().equalsIgnoreCase("user") && login.getPassword().equalsIgnoreCase("user")) {
 			return "user-employee-form";
