@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.activemq.EmployeeProducer;
@@ -30,6 +32,8 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeService employeeService;
+	@Autowired
+	private CacheManager cacheManager;
 
 	@Autowired
 	EmployeeProducer employeeProducer;
@@ -108,5 +112,12 @@ public class EmployeeController {
 	public String deleteEmployee(@RequestParam("employeeId") int theId) throws ResourceNotFoundException {
 		employeeService.deleteEmployee(theId);
 		return "redirect:/list";
+	}
+
+	@RequestMapping(value = "clearCache")
+	public void clearCache() {
+		for (String name : cacheManager.getCacheNames()) {
+			cacheManager.getCache(name).clear();
+		}
 	}
 }

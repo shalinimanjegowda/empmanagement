@@ -12,6 +12,9 @@ public class Customer {
 	private String lastName;
 	private int age;
 	private int empNumber;
+	public Customer() {
+		
+	}
 	public Customer(String id, String firstName, String lastName, int age, int empNumber) {
 		super();
 		this.id = id;
