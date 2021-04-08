@@ -40,9 +40,6 @@ public class EmployeeController {
 	@Autowired
 	EmployeeProducer employeeProducer;
 
-	@Autowired
-	private EmailService emailService;
-
 
 	@Value("${activemq.destination}")
 	private String destination;
@@ -62,20 +59,8 @@ public class EmployeeController {
 	@PostMapping("/login")
 	public String login(Login login, Model model) {
 		Employee theEmployee = new Employee();
-		//EmailPojo pojo = new EmailPojo();
 		model.addAttribute("employee", theEmployee);
 		if (login.getUsername().equalsIgnoreCase("admin") && login.getPassword().equalsIgnoreCase("admin")) {
-			/*
-			 * emailService.sendMail("s.manjegowda@devon.nl", "Hi", "Welcome");
-			 * emailService.sendPreConfiguredMail("Welcome");
-			 */
-			/*
-			 * pojo.setEmailSubject("Testing mail");
-			 * pojo.setToEmail("s.manjegowda@devon.nl"); pojo.setEmailSubject("User OTP");
-			 * pojo.setFromEmail("projectsdata7789@gmail.com");
-			 * pojo.setMessage("Dear User Your OTP is"); pojo.setToName("User"); String
-			 * response = sendGridService.sendMail(pojo);
-			 */
 			return "admin-employee-form";
 		} else if (login.getUsername().equalsIgnoreCase("user") && login.getPassword().equalsIgnoreCase("user")) {
 			return "user-employee-form";
