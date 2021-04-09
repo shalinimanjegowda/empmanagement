@@ -5,8 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.activemq.EmployeeProducer;
-import com.email.EmailService;
-import com.email.SendGridService;
 
-import net.com.springmvc.entity.EmailPojo;
 import net.com.springmvc.entity.Employee;
 import net.com.springmvc.entity.Login;
 import net.com.springmvc.exception.ResourceNotFoundException;
@@ -39,9 +36,6 @@ public class EmployeeController {
 
 	@Autowired
 	EmployeeProducer employeeProducer;
-
-	@Autowired
-	private EmailService emailService;
 
 
 	@Value("${activemq.destination}")
@@ -62,20 +56,8 @@ public class EmployeeController {
 	@PostMapping("/login")
 	public String login(Login login, Model model) {
 		Employee theEmployee = new Employee();
-		//EmailPojo pojo = new EmailPojo();
 		model.addAttribute("employee", theEmployee);
 		if (login.getUsername().equalsIgnoreCase("admin") && login.getPassword().equalsIgnoreCase("admin")) {
-			/*
-			 * emailService.sendMail("s.manjegowda@devon.nl", "Hi", "Welcome");
-			 * emailService.sendPreConfiguredMail("Welcome");
-			 */
-			/*
-			 * pojo.setEmailSubject("Testing mail");
-			 * pojo.setToEmail("s.manjegowda@devon.nl"); pojo.setEmailSubject("User OTP");
-			 * pojo.setFromEmail("projectsdata7789@gmail.com");
-			 * pojo.setMessage("Dear User Your OTP is"); pojo.setToName("User"); String
-			 * response = sendGridService.sendMail(pojo);
-			 */
 			return "admin-employee-form";
 		} else if (login.getUsername().equalsIgnoreCase("user") && login.getPassword().equalsIgnoreCase("user")) {
 			return "user-employee-form";
