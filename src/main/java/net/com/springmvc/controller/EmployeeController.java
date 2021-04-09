@@ -5,8 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.activemq.EmployeeProducer;
-import com.email.EmailService;
-import com.email.SendGridService;
 
-import net.com.springmvc.entity.EmailPojo;
 import net.com.springmvc.entity.Employee;
 import net.com.springmvc.entity.Login;
 import net.com.springmvc.exception.ResourceNotFoundException;
